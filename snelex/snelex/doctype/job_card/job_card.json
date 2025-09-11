@@ -1,0 +1,333 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-08-29 09:17:00.000000",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "job_date",
+  "consignment_note",
+  "column_break_4",
+  "job_status",
+  "advance_status",
+  "section_break_7",
+  "consignment_from",
+  "consignment_to",
+  "column_break_10",
+  "payment_by",
+  "tracking_no",
+  "job_details_section",
+  "job_description",
+  "special_instructions",
+  "column_break_15",
+  "estimated_delivery_date",
+  "actual_delivery_date",
+  "priority",
+  "shipper_info_section",
+  "shipper_name",
+  "shipper_contact",
+  "column_break_21",
+  "shipper_phone",
+  "shipper_email",
+  "consignee_info_section",
+  "consignee_name",
+  "consignee_contact",
+  "column_break_26",
+  "consignee_phone",
+  "consignee_email",
+  "shipment_summary_section",
+  "total_pieces",
+  "total_weight",
+  "column_break_31",
+  "number_of_cartons",
+  "number_of_bundles",
+  "remarks_section",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "JOB-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "job_date",
+   "fieldtype": "Date",
+   "label": "Job Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "consignment_note",
+   "fieldtype": "Link",
+   "label": "Consignment Note",
+   "options": "Consignment Note",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "job_status",
+   "fieldtype": "Select",
+   "label": "Job Status",
+   "options": "\nOpen\nIn Progress\nCompleted\nCancelled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "advance_status",
+   "fieldtype": "Select",
+   "label": "Advance Status",
+   "options": "\nOpen\nClosed"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "consignment_from",
+   "fieldtype": "Link",
+   "label": "From",
+   "options": "Location",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consignment_to",
+   "fieldtype": "Link",
+   "label": "To",
+   "options": "Location",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_by",
+   "fieldtype": "Data",
+   "label": "Payment By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tracking_no",
+   "fieldtype": "Data",
+   "label": "Tracking#",
+   "read_only": 1
+  },
+  {
+   "fieldname": "job_details_section",
+   "fieldtype": "Section Break",
+   "label": "Job Details"
+  },
+  {
+   "fieldname": "job_description",
+   "fieldtype": "Text Editor",
+   "label": "Job Description"
+  },
+  {
+   "fieldname": "special_instructions",
+   "fieldtype": "Text Editor",
+   "label": "Special Instructions"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "estimated_delivery_date",
+   "fieldtype": "Date",
+   "label": "Estimated Delivery Date"
+  },
+  {
+   "fieldname": "actual_delivery_date",
+   "fieldtype": "Date",
+   "label": "Actual Delivery Date"
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "\nLow\nMedium\nHigh\nUrgent"
+  },
+  {
+   "fieldname": "shipper_info_section",
+   "fieldtype": "Section Break",
+   "label": "Shipper Information"
+  },
+  {
+   "fieldname": "shipper_name",
+   "fieldtype": "Data",
+   "label": "Shipper Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "shipper_contact",
+   "fieldtype": "Data",
+   "label": "Contact Person",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shipper_phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "shipper_email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consignee_info_section",
+   "fieldtype": "Section Break",
+   "label": "Consignee Information"
+  },
+  {
+   "fieldname": "consignee_name",
+   "fieldtype": "Data",
+   "label": "Consignee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consignee_contact",
+   "fieldtype": "Data",
+   "label": "Contact Person",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consignee_phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consignee_email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "shipment_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Shipment Summary"
+  },
+  {
+   "fieldname": "total_pieces",
+   "fieldtype": "Int",
+   "label": "Total Pieces",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_weight",
+   "fieldtype": "Float",
+   "label": "Total Weight (Lbs)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_31",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "number_of_cartons",
+   "fieldtype": "Int",
+   "label": "Number of Cartons",
+   "read_only": 1
+  },
+  {
+   "fieldname": "number_of_bundles",
+   "fieldtype": "Int",
+   "label": "Number of Bundles",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks_section",
+   "fieldtype": "Section Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Job Card",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-29 09:17:00.000000",
+ "modified_by": "Administrator",
+ "module": "Snelex",
+ "name": "Job Card",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

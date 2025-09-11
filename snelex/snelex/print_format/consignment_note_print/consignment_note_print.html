@@ -1,0 +1,240 @@
+<div class="print-format">
+    <div class="print-heading">
+        <h2 style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #333; padding-bottom: 10px;">
+            CONSIGNMENT NOTE
+        </h2>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-xs-6">
+            <div><strong>Consignment No:</strong> {{ doc.name }}</div>
+            <div><strong>Date:</strong> {{ frappe.utils.formatdate(doc.consignment_date) }}</div>
+            {% if doc.tracking_no %}
+            <div><strong>Tracking #:</strong> {{ doc.tracking_no }}</div>
+            {% endif %}
+        </div>
+        <div class="col-xs-6" style="text-align: right;">
+            <div><strong>From:</strong> {{ doc.consignment_from }}</div>
+            <div><strong>To:</strong> {{ doc.consignment_to }}</div>
+            <div><strong>Payment By:</strong> {{ doc.payment_by }}</div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <!-- Shipper Details -->
+        <div class="col-xs-6">
+            <div class="section-heading" style="background-color: #f5f5f5; padding: 8px; margin-bottom: 10px; font-weight: bold; border-left: 4px solid #333;">
+                SHIPPER DETAILS
+            </div>
+            {% if doc.shipper_supplier %}
+            <div><strong>Supplier:</strong> {{ doc.shipper_supplier }}</div>
+            {% endif %}
+            {% if doc.shipper_display_name %}
+            <div><strong>Name:</strong> {{ doc.shipper_display_name }}</div>
+            {% endif %}
+            {% if doc.shipper_address %}
+            <div><strong>Address:</strong><br>{{ doc.shipper_address|replace('\n', '<br>')|safe }}</div>
+            {% endif %}
+            {% if doc.shipper_phone %}
+            <div><strong>Phone:</strong> {{ doc.shipper_phone }}</div>
+            {% endif %}
+            {% if doc.shipper_fax %}
+            <div><strong>Fax:</strong> {{ doc.shipper_fax }}</div>
+            {% endif %}
+            {% if doc.shipper_email %}
+            <div><strong>Email:</strong> {{ doc.shipper_email }}</div>
+            {% endif %}
+            {% if doc.shipper_web %}
+            <div><strong>Web:</strong> {{ doc.shipper_web }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Consignee Details -->
+        <div class="col-xs-6">
+            <div class="section-heading" style="background-color: #f5f5f5; padding: 8px; margin-bottom: 10px; font-weight: bold; border-left: 4px solid #333;">
+                CONSIGNEE DETAILS
+            </div>
+            {% if doc.consignee_customer %}
+            <div><strong>Customer:</strong> {{ doc.consignee_customer }}</div>
+            {% endif %}
+            {% if doc.consignee_display_name %}
+            <div><strong>Name:</strong> {{ doc.consignee_display_name }}</div>
+            {% endif %}
+            {% if doc.consignee_address %}
+            <div><strong>Address:</strong><br>{{ doc.consignee_address|replace('\n', '<br>')|safe }}</div>
+            {% endif %}
+            {% if doc.consignee_phone %}
+            <div><strong>Phone:</strong> {{ doc.consignee_phone }}</div>
+            {% endif %}
+            {% if doc.consignee_fax %}
+            <div><strong>Fax:</strong> {{ doc.consignee_fax }}</div>
+            {% endif %}
+            {% if doc.consignee_email %}
+            <div><strong>Email:</strong> {{ doc.consignee_email }}</div>
+            {% endif %}
+            {% if doc.consignee_web %}
+            <div><strong>Web:</strong> {{ doc.consignee_web }}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Delivery Details -->
+    {% if doc.delivery_contact_person or doc.delivery_address or doc.delivery_phone or doc.delivery_email %}
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-xs-12">
+            <div class="section-heading" style="background-color: #f5f5f5; padding: 8px; margin-bottom: 10px; font-weight: bold; border-left: 4px solid #333;">
+                DELIVERY DETAILS
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    {% if doc.delivery_contact_person %}
+                    <div><strong>Contact Person:</strong> {{ doc.delivery_contact_person }}</div>
+                    {% endif %}
+                    {% if doc.delivery_address %}
+                    <div><strong>Address:</strong><br>{{ doc.delivery_address|replace('\n', '<br>')|safe }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-xs-6">
+                    {% if doc.delivery_phone %}
+                    <div><strong>Phone:</strong> {{ doc.delivery_phone }}</div>
+                    {% endif %}
+                    {% if doc.delivery_fax %}
+                    <div><strong>Fax:</strong> {{ doc.delivery_fax }}</div>
+                    {% endif %}
+                    {% if doc.delivery_mobile %}
+                    <div><strong>Mobile:</strong> {{ doc.delivery_mobile }}</div>
+                    {% endif %}
+                    {% if doc.delivery_email %}
+                    <div><strong>Email:</strong> {{ doc.delivery_email }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Shipment Details -->
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-xs-12">
+            <div class="section-heading" style="background-color: #f5f5f5; padding: 8px; margin-bottom: 10px; font-weight: bold; border-left: 4px solid #333;">
+                SHIPMENT DETAILS
+            </div>
+            <table class="table table-bordered" style="margin-bottom: 0;">
+                <thead>
+                    <tr style="background-color: #f9f9f9;">
+                        <th>Cartons</th>
+                        <th>Bundles</th>
+                        <th>Pieces</th>
+                        <th>Pallets</th>
+                        <th>Bags</th>
+                        <th>Total Pieces</th>
+                        <th>Weight (Lbs)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ doc.number_of_cartons or 0 }}</td>
+                        <td>{{ doc.number_of_bundles or 0 }}</td>
+                        <td>{{ doc.number_of_pieces or 0 }}</td>
+                        <td>{{ doc.number_of_pallets or 0 }}</td>
+                        <td>{{ doc.number_of_bags or 0 }}</td>
+                        <td><strong>{{ doc.total_no_of_pieces or 0 }}</strong></td>
+                        <td>{{ doc.total_weight_lbs or 0 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Description -->
+    {% if doc.description %}
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-xs-12">
+            <div class="section-heading" style="background-color: #f5f5f5; padding: 8px; margin-bottom: 10px; font-weight: bold; border-left: 4px solid #333;">
+                DESCRIPTION
+            </div>
+            <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px;">
+                {{ doc.description|safe }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Remarks -->
+    {% if doc.remarks %}
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-xs-12">
+            <div class="section-heading" style="background-color: #f5f5f5; padding: 8px; margin-bottom: 10px; font-weight: bold; border-left: 4px solid #333;">
+                REMARKS
+            </div>
+            <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px;">
+                {{ doc.remarks|safe }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Signature Section -->
+    <div class="row" style="margin-top: 40px; page-break-inside: avoid;">
+        <div class="col-xs-4">
+            <div style="border-top: 1px solid #333; padding-top: 5px; text-align: center; margin-top: 60px;">
+                <strong>Shipper Signature</strong>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div style="border-top: 1px solid #333; padding-top: 5px; text-align: center; margin-top: 60px;">
+                <strong>Carrier Signature</strong>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div style="border-top: 1px solid #333; padding-top: 5px; text-align: center; margin-top: 60px;">
+                <strong>Consignee Signature</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="row" style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px;">
+        <div class="col-xs-12" style="text-align: center; font-size: 12px; color: #666;">
+            <p>This is a computer generated document. No signature required.</p>
+            <p>Generated on {{ frappe.utils.now_datetime().strftime("%d-%m-%Y %H:%M:%S") }}</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .print-format {
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+    
+    .print-format .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .print-format .table th,
+    .print-format .table td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    
+    .print-format .table th {
+        background-color: #f9f9f9;
+        font-weight: bold;
+    }
+    
+    @media print {
+        .print-format {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .section-heading {
+            background-color: #f5f5f5 !important;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+</style>

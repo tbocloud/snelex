@@ -1,0 +1,445 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-08-29 08:29:00",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "consignment_date",
+  "tracking_no",
+  "column_break_4",
+  "consignment_to",
+  "consignment_from",
+  "payment_by",
+  "shipper_tab",
+  "shipper_details",
+  "shipper_supplier",
+  "shipper_display_name",
+  "shipper_address",
+  "column_break_14",
+  "shipper_phone",
+  "shipper_fax",
+  "shipper_email",
+  "shipper_web",
+  "invoiced_to_tab",
+  "invoiced_to_section",
+  "invoiced_to",
+  "invoiced_to_display_name",
+  "invoiced_to_address",
+  "column_break_invoiced",
+  "invoiced_to_phone",
+  "invoiced_to_fax",
+  "invoiced_to_email",
+  "invoiced_to_web",
+  "consignee_tab",
+  "consignee_details",
+  "consignee_customer",
+  "consignee_display_name",
+  "consignee_address",
+  "column_break_22",
+  "consignee_phone",
+  "consignee_fax",
+  "consignee_email",
+  "consignee_web",
+  "delivery_tab",
+  "delivery_details",
+  "delivery_contact_person",
+  "delivery_address",
+  "column_break_30",
+  "delivery_phone",
+  "delivery_fax",
+  "delivery_mobile",
+  "delivery_email",
+  "shipment_details_section",
+  "number_of_cartons",
+  "number_of_bundles",
+  "number_of_pieces",
+  "column_break_39",
+  "number_of_pallets",
+  "number_of_bags",
+  "total_no_of_pieces",
+  "total_weight_lbs",
+  "description_section",
+  "description",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "CN-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "consignment_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Consignment Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tracking_no",
+   "fieldtype": "Data",
+   "label": "Tracking#"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consignment_to",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Consignment to (Destination)",
+   "options": "Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "consignment_from",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Consignment from (Origin)",
+   "options": "Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_by",
+   "fieldtype": "Select",
+   "label": "Payment by",
+   "options": "\nShipper\nReceiver\n3rd Party",
+   "reqd": 1
+  },
+  {
+   "fieldname": "invoiced_to_section",
+   "fieldtype": "Section Break",
+   "label": "Invoiced To"
+  },
+  {
+   "fieldname": "invoiced_to",
+   "fieldtype": "Link",
+   "label": "Invoiced To",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "invoiced_to_display_name",
+   "fieldtype": "Data",
+   "label": "Display Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoiced_to_address",
+   "fieldtype": "Small Text",
+   "label": "Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_invoiced",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "invoiced_to_phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoiced_to_fax",
+   "fieldtype": "Data",
+   "label": "Fax",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoiced_to_email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoiced_to_web",
+   "fieldtype": "Data",
+   "label": "Web",
+   "read_only": 1
+  },
+  {
+   "fieldname": "shipper_tab",
+   "fieldtype": "Tab Break",
+   "label": "Shipper Details"
+  },
+  {
+   "fieldname": "shipper_details",
+   "fieldtype": "Section Break",
+   "label": "Shipper Details"
+  },
+  {
+   "fieldname": "shipper_supplier",
+   "fieldtype": "Link",
+   "label": "Shipper (Supplier)",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "shipper_display_name",
+   "fieldtype": "Data",
+   "label": "Display Name"
+  },
+  {
+   "fieldname": "shipper_address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shipper_phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "shipper_fax",
+   "fieldtype": "Data",
+   "label": "Fax"
+  },
+  {
+   "fieldname": "shipper_email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "shipper_web",
+   "fieldtype": "Data",
+   "label": "Web"
+  },
+  {
+   "fieldname": "consignee_tab",
+   "fieldtype": "Tab Break",
+   "label": "Consignee Details"
+  },
+  {
+   "fieldname": "consignee_details",
+   "fieldtype": "Section Break",
+   "label": "Consignee Details"
+  },
+  {
+   "fieldname": "consignee_customer",
+   "fieldtype": "Link",
+   "label": "Consignee (Customer)",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "consignee_display_name",
+   "fieldtype": "Data",
+   "label": "Display Name"
+  },
+  {
+   "fieldname": "consignee_address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consignee_phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "consignee_fax",
+   "fieldtype": "Data",
+   "label": "Fax"
+  },
+  {
+   "fieldname": "consignee_email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "consignee_web",
+   "fieldtype": "Data",
+   "label": "Web"
+  },
+  {
+   "fieldname": "delivery_tab",
+   "fieldtype": "Tab Break",
+   "label": "Delivery Details"
+  },
+  {
+   "fieldname": "delivery_details",
+   "fieldtype": "Section Break",
+   "label": "Delivery Details"
+  },
+  {
+   "fieldname": "delivery_contact_person",
+   "fieldtype": "Data",
+   "label": "Contact Person"
+  },
+  {
+   "fieldname": "delivery_address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "delivery_fax",
+   "fieldtype": "Data",
+   "label": "Fax"
+  },
+  {
+   "fieldname": "delivery_mobile",
+   "fieldtype": "Data",
+   "label": "Mobile"
+  },
+  {
+   "fieldname": "delivery_email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "shipment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Shipment Details"
+  },
+  {
+   "fieldname": "number_of_cartons",
+   "fieldtype": "Int",
+   "label": "Number of Cartons"
+  },
+  {
+   "fieldname": "number_of_bundles",
+   "fieldtype": "Int",
+   "label": "Number of Bundles"
+  },
+  {
+   "fieldname": "number_of_pieces",
+   "fieldtype": "Int",
+   "label": "Number of Pieces"
+  },
+  {
+   "fieldname": "column_break_39",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "number_of_pallets",
+   "fieldtype": "Int",
+   "label": "Number of Pallets"
+  },
+  {
+   "fieldname": "number_of_bags",
+   "fieldtype": "Int",
+   "label": "Number of Bags"
+  },
+  {
+   "fieldname": "total_no_of_pieces",
+   "fieldtype": "Int",
+   "label": "Total No of Pieces",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_weight_lbs",
+   "fieldtype": "Float",
+   "label": "Total Weight (Lbs)"
+  },
+  {
+   "fieldname": "description_section",
+   "fieldtype": "Section Break",
+   "label": "Description & Remarks"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Consignment Note",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoiced_to_tab",
+   "fieldtype": "Tab Break",
+   "label": "Invoiced To"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-29 12:19:11.035481",
+ "modified_by": "Administrator",
+ "module": "Snelex",
+ "name": "Consignment Note",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
