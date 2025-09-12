@@ -7,13 +7,13 @@ frappe.ui.form.on('Consignment Note', {
 		if (!frm.doc.consignment_date) {
 			frm.set_value('consignment_date', frappe.datetime.get_today());
 		}
-		
+
 		// Add custom buttons for submitted documents
 		if (frm.doc.docstatus === 1) {
 			frm.add_custom_button(__('Print Consignment Note'), function() {
 				frm.print_doc();
 			});
-			
+
 			frm.add_custom_button(__('Email Consignment Note'), function() {
 				frappe.route_options = {
 					"dt": frm.doc.doctype,
@@ -21,20 +21,20 @@ frappe.ui.form.on('Consignment Note', {
 				};
 				frappe.set_route("Form", "Email Queue", "new-email-queue-1");
 			});
-			
+
 			// Add Create Job Card button
 			frm.add_custom_button(__('Create Job Card'), function() {
 				create_job_card_from_consignment_note(frm);
 			}, __('Create'));
 		}
-		
+
 		// Calculate total pieces on refresh
 		calculate_total_pieces(frm);
 	},
 
 	consignment_from: function(frm) {
 		// Validate that from and to locations are different
-		if (frm.doc.consignment_from && frm.doc.consignment_to && 
+		if (frm.doc.consignment_from && frm.doc.consignment_to &&
 			frm.doc.consignment_from === frm.doc.consignment_to) {
 			frappe.msgprint(__('Consignment From and Consignment To cannot be the same location'));
 			frm.set_value('consignment_from', '');
@@ -43,7 +43,7 @@ frappe.ui.form.on('Consignment Note', {
 
 	consignment_to: function(frm) {
 		// Validate that from and to locations are different
-		if (frm.doc.consignment_from && frm.doc.consignment_to && 
+		if (frm.doc.consignment_from && frm.doc.consignment_to &&
 			frm.doc.consignment_from === frm.doc.consignment_to) {
 			frappe.msgprint(__('Consignment From and Consignment To cannot be the same location'));
 			frm.set_value('consignment_to', '');
@@ -168,7 +168,7 @@ frappe.ui.form.on('Consignment Note', {
 		}
 
 		// Validate at least one shipment detail
-		if (!frm.doc.number_of_cartons && !frm.doc.number_of_bundles && 
+		if (!frm.doc.number_of_cartons && !frm.doc.number_of_bundles &&
 			!frm.doc.number_of_pieces && !frm.doc.number_of_pallets && !frm.doc.number_of_bags) {
 			frappe.throw(__('At least one shipment detail (Cartons, Bundles, Pieces, Pallets, or Bags) is required'));
 		}
@@ -186,7 +186,7 @@ frappe.ui.form.on('Consignment Note', {
 // Helper function to calculate total pieces
 function calculate_total_pieces(frm) {
 	let total = 0;
-	
+
 	if (frm.doc.number_of_cartons) {
 		total += frm.doc.number_of_cartons;
 	}
@@ -202,7 +202,7 @@ function calculate_total_pieces(frm) {
 	if (frm.doc.number_of_bags) {
 		total += frm.doc.number_of_bags;
 	}
-	
+
 	frm.set_value('total_no_of_pieces', total);
 }
 
@@ -283,21 +283,21 @@ function create_job_card_from_consignment_note(frm) {
 frappe.ui.form.on('Consignment Note', {
 	setup: function(frm) {
 		// Filter locations to show only active ones
-		frm.set_query('consignment_from', function() {
-			return {
-				filters: {
-					'disabled': 0
-				}
-			};
-		});
+		// frm.set_query('consignment_from', function() {
+		// 	return {
+		// 		filters: {
+		// 			'disabled': 0
+		// 		}
+		// 	};
+		// });
 
-		frm.set_query('consignment_to', function() {
-			return {
-				filters: {
-					'disabled': 0
-				}
-			};
-		});
+		// frm.set_query('consignment_to', function() {
+		// 	return {
+		// 		filters: {
+		// 			'disabled': 0
+		// 		}
+		// 	};
+		// });
 
 		// Filter suppliers to show only active ones
 		frm.set_query('shipper_supplier', function() {
