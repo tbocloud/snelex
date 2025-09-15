@@ -31,7 +31,6 @@ frappe.ui.form.on('Consignment Note', {
 		// Calculate total pieces on refresh
 		calculate_total_pieces(frm);
 	},
-
 	consignment_from: function(frm) {
 		// Validate that from and to locations are different
 		if (frm.doc.consignment_from && frm.doc.consignment_to &&
@@ -50,33 +49,38 @@ frappe.ui.form.on('Consignment Note', {
 		}
 	},
 
-	shipper_supplier: function(frm) {
-		if (frm.doc.shipper_supplier) {
-			// Fetch supplier details
-			frappe.call({
-				method: 'snelex.snelex.doctype.consignment_note.consignment_note.get_supplier_details',
-				args: {
-					supplier: frm.doc.shipper_supplier
-				},
-				callback: function(r) {
-					if (r.message) {
-						frm.set_value('shipper_display_name', r.message.display_name);
-						frm.set_value('shipper_address', r.message.address);
-						frm.set_value('shipper_phone', r.message.phone);
-						frm.set_value('shipper_email', r.message.email);
-					}
-				}
-			});
-		} else {
-			// Clear shipper details when supplier is cleared
-			frm.set_value('shipper_display_name', '');
-			frm.set_value('shipper_address', '');
-			frm.set_value('shipper_phone', '');
-			frm.set_value('shipper_email', '');
-			frm.set_value('shipper_fax', '');
-			frm.set_value('shipper_web', '');
-		}
-	},
+	shipper: function(frm) {
+		 if (frm.doc.shipper) {
+				 set_invoiced_to(frm)
+				 frappe.call({
+						 method: 'snelex.snelex.doctype.consignment_note.consignment_note.get_shipper_details',
+						 args: {
+								 shipper: frm.doc.shipper
+						 },
+						 callback: function(r) {
+								 if (r.message) {
+										 frm.set_value('shipper_display_name', r.message.display_name);
+										 frm.set_value('shipper_address', r.message.address);
+										 frm.set_value('shipper_phone', r.message.phone);
+										 frm.set_value('shipper_fax', r.message.fax);
+										 frm.set_value('shipper_email', r.message.email);
+
+										 frm.set_value('invoiced_to_display_name', r.message.display_name);
+										 frm.set_value('invoiced_to_address', r.message.address);
+										 frm.set_value('invoiced_to_phone', r.message.phone);
+										 frm.set_value('invoiced_to_phone', r.message.fax);
+										 frm.set_value('invoiced_to_email', r.message.email);
+								 }
+						 }
+				 });
+		 } else {
+				 frm.set_value('shipper_display_name', '');
+				 frm.set_value('shipper_address', '');
+				 frm.set_value('shipper_phone', '');
+				 frm.set_value('shipper_fax', '');
+				 frm.set_value('shipper_email', '');
+		 }
+ },
 
 	consignee_customer: function(frm) {
 		if (frm.doc.consignee_customer) {
@@ -84,7 +88,7 @@ frappe.ui.form.on('Consignment Note', {
 			frappe.call({
 				method: 'snelex.snelex.doctype.consignment_note.consignment_note.get_customer_details',
 				args: {
-					customer: frm.doc.consignee_customer
+					shipper: frm.doc.consignee_customer
 				},
 				callback: function(r) {
 					if (r.message) {
@@ -92,6 +96,13 @@ frappe.ui.form.on('Consignment Note', {
 						frm.set_value('consignee_address', r.message.address);
 						frm.set_value('consignee_phone', r.message.phone);
 						frm.set_value('consignee_email', r.message.email);
+
+						frm.set_value('invoiced_to', r.message.display_name);
+						frm.set_value('invoiced_to_display_name', r.message.display_name);
+						frm.set_value('invoiced_to_address', r.message.address);
+						frm.set_value('invoiced_to_phone', r.message.phone);
+						frm.set_value('invoiced_to_phone', r.message.fax);
+						frm.set_value('invoiced_to_email', r.message.email);
 					}
 				}
 			});
@@ -109,17 +120,17 @@ frappe.ui.form.on('Consignment Note', {
 	payment_by: function(frm) {
 		// Show/hide relevant fields based on payment type
 		if (frm.doc.payment_by === 'Shipper') {
-			frm.set_df_property('shipper_supplier', 'reqd', 1);
+			frm.set_df_property('shipper', 'reqd', 1);
 			frm.set_df_property('consignee_customer', 'reqd', 0);
 			// Auto-populate invoiced to from shipper details
 			set_invoiced_to_from_shipper(frm);
 		} else if (frm.doc.payment_by === 'Receiver') {
-			frm.set_df_property('shipper_supplier', 'reqd', 0);
+			frm.set_df_property('shipper', 'reqd', 0);
 			frm.set_df_property('consignee_customer', 'reqd', 1);
 			// Auto-populate invoiced to from consignee details
 			set_invoiced_to_from_consignee(frm);
 		} else {
-			frm.set_df_property('shipper_supplier', 'reqd', 0);
+			frm.set_df_property('shipper', 'reqd', 0);
 			frm.set_df_property('consignee_customer', 'reqd', 0);
 			// Clear invoiced to for 3rd party
 			clear_invoiced_to_details(frm);
@@ -174,14 +185,24 @@ frappe.ui.form.on('Consignment Note', {
 		}
 
 		// Validate payment by specific requirements
-		if (frm.doc.payment_by === 'Shipper' && !frm.doc.shipper_supplier) {
+		if (frm.doc.payment_by === 'Shipper' && !frm.doc.shipper) {
 			frappe.throw(__('Shipper (Supplier) is required when Payment By is Shipper'));
 		}
 		if (frm.doc.payment_by === 'Receiver' && !frm.doc.consignee_customer) {
 			frappe.throw(__('Consignee (Customer) is required when Payment By is Receiver'));
 		}
+	},
+	validate: function(frm) {
+		set_invoiced_to(frm);
 	}
 });
+
+function set_invoiced_to(frm){
+	if (frm.doc.payment_by == "Shipper") {
+			frm.set_value("invoiced_to", frm.doc.shipper);
+			frm.set_value("invoiced_to_display_name", frm.doc.shipper);
+	}
+}
 
 // Helper function to calculate total pieces
 function calculate_total_pieces(frm) {
@@ -208,13 +229,13 @@ function calculate_total_pieces(frm) {
 
 // Helper function to set invoiced to from shipper details
 function set_invoiced_to_from_shipper(frm) {
-	if (frm.doc.shipper_supplier) {
+	if (frm.doc.shipper) {
 		// Check if supplier has a linked customer
 		frappe.call({
 			method: 'frappe.client.get_value',
 			args: {
 				doctype: 'Customer',
-				filters: {'supplier': frm.doc.shipper_supplier},
+				filters: {'supplier': frm.doc.shipper},
 				fieldname: 'name'
 			},
 			callback: function(r) {
@@ -300,21 +321,21 @@ frappe.ui.form.on('Consignment Note', {
 		// });
 
 		// Filter suppliers to show only active ones
-		frm.set_query('shipper_supplier', function() {
-			return {
-				filters: {
-					'disabled': 0
-				}
-			};
-		});
+		// frm.set_query('shipper', function() {
+		// 	return {
+		// 		filters: {
+		// 			'disabled': 0
+		// 		}
+		// 	};
+		// });
 
 		// Filter customers to show only active ones
-		frm.set_query('consignee_customer', function() {
-			return {
-				filters: {
-					'disabled': 0
-				}
-			};
-		});
+		// frm.set_query('consignee_customer', function() {
+		// 	return {
+		// 		filters: {
+		// 			'disabled': 0
+		// 		}
+		// 	};
+		// });
 	}
 });

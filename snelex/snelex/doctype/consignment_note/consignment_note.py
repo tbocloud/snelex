@@ -4,6 +4,7 @@
 import frappe
 from frappe.model.document import Document
 from frappe.utils import flt
+import re
 
 
 class ConsignmentNote(Document):
@@ -12,7 +13,7 @@ class ConsignmentNote(Document):
 		self.validate_locations()
 		self.calculate_total_pieces()
 		self.validate_payment_details()
-		self.fetch_supplier_details()
+		self.fetch_shipper_details()
 		self.fetch_customer_details()
 		self.set_invoiced_to()
 
@@ -43,68 +44,83 @@ class ConsignmentNote(Document):
 			frappe.throw("Payment By is mandatory")
 
 		# Validate based on payment type
-		if self.payment_by == "Shipper" and not self.shipper_supplier:
+		if self.payment_by == "Shipper" and not self.shipper:
 			frappe.throw("Shipper (Supplier) is required when Payment By is Shipper")
 		elif self.payment_by == "Receiver" and not self.consignee_customer:
 			frappe.throw("Consignee (Customer) is required when Payment By is Receiver")
 
-	def fetch_supplier_details(self):
+	def fetch_shipper_details(self):
 		"""Fetch supplier details when shipper supplier is selected"""
-		if self.shipper_supplier and not self.shipper_display_name:
-			supplier = frappe.get_doc("Supplier", self.shipper_supplier)
-			self.shipper_display_name = supplier.supplier_name
+		if self.shipper:
+			shipper = frappe.get_doc("Shipper", self.shipper)
+			self.shipper_display_name = shipper.name
 
 			# Fetch primary address
 			address = frappe.db.get_value("Dynamic Link",
-				{"link_doctype": "Supplier", "link_name": self.shipper_supplier, "parenttype": "Address"},
+				{"link_doctype": "Shipper", "link_name": self.name, "parenttype": "Address"},
 				"parent")
 
 			if address:
 				address_doc = frappe.get_doc("Address", address)
-				self.shipper_address = address_doc.get_display()
+				self.address = address_doc.get_display()
 
 			# Fetch primary contact
 			contact = frappe.db.get_value("Dynamic Link",
-				{"link_doctype": "Supplier", "link_name": self.shipper_supplier, "parenttype": "Contact"},
+				{"link_doctype": "Shipper", "link_name": self.name, "parenttype": "Contact"},
 				"parent")
 
 			if contact:
 				contact_doc = frappe.get_doc("Contact", contact)
 				self.shipper_phone = contact_doc.phone
 				self.shipper_email = contact_doc.email_id
+				self.shipper_fax =  contact_doc.fax
 
 	def fetch_customer_details(self):
-		"""Fetch customer details when consignee customer is selected"""
-		if self.consignee_customer and not self.consignee_display_name:
-			customer = frappe.get_doc("Customer", self.consignee_customer)
-			self.consignee_display_name = customer.customer_name
+	    """Fetch customer details when consignee customer is selected"""
+	    if self.consignee_customer:
+	        # Get Customer doc
+	        customer = frappe.get_doc("Customer", self.consignee_customer)
+	        self.consignee_display_name = customer.customer_name
 
-			# Fetch primary address
-			address = frappe.db.get_value("Dynamic Link",
-				{"link_doctype": "Customer", "link_name": self.consignee_customer, "parenttype": "Address"},
-				"parent")
+	        # Fetch primary address
+	        address = frappe.db.get_value(
+	            "Dynamic Link",
+	            {
+	                "link_doctype": "Customer",
+	                "link_name": self.consignee_customer,   # FIXED
+	                "parenttype": "Address"
+	            },
+	            "parent"
+	        )
 
-			if address:
-				address_doc = frappe.get_doc("Address", address)
-				self.consignee_address = address_doc.get_display()
+	        if address:
+	            address_doc = frappe.get_doc("Address", address)
+	            self.consignee_address = address_doc.get_display()
 
-			# Fetch primary contact
-			contact = frappe.db.get_value("Dynamic Link",
-				{"link_doctype": "Customer", "link_name": self.consignee_customer, "parenttype": "Contact"},
-				"parent")
+	        # Fetch primary contact
+	        contact = frappe.db.get_value(
+	            "Dynamic Link",
+	            {
+	                "link_doctype": "Customer",
+	                "link_name": self.consignee_customer,   # FIXED
+	                "parenttype": "Contact"
+	            },
+	            "parent"
+	        )
 
-			if contact:
-				contact_doc = frappe.get_doc("Contact", contact)
-				self.consignee_phone = contact_doc.phone
-				self.consignee_email = contact_doc.email_id
+	        if contact:
+	            contact_doc = frappe.get_doc("Contact", contact)
+	            self.consignee_phone = contact_doc.phone
+	            self.consignee_email = contact_doc.email_id
+	            self.consignee_fax = contact_doc.fax
 
 	def set_invoiced_to(self):
 		"""Set invoiced to based on payment by selection"""
 		if self.payment_by == "Shipper":
 			# Convert shipper supplier to customer if exists, otherwise use shipper details
-			if self.shipper_supplier:
+			if self.shipper:
 				# Check if supplier has a linked customer
-				customer = frappe.db.get_value("Customer", {"name": self.shipper_supplier}, "name")
+				customer = frappe.db.get_value("Customer", {"name": self.shipper}, "name")
 				if customer:
 					self.invoiced_to = customer
 				else:
@@ -151,7 +167,7 @@ class ConsignmentNote(Document):
 	def on_submit(self):
 		"""Actions to perform when consignment note is submitted"""
 		self.validate_mandatory_fields_for_submission()
-		self.update_status()
+		# self.update_status()
 
 	def validate_mandatory_fields_for_submission(self):
 		"""Validate mandatory fields required for submission"""
@@ -171,9 +187,9 @@ class ConsignmentNote(Document):
 				   self.number_of_pieces, self.number_of_pallets, self.number_of_bags]):
 			frappe.throw("At least one shipment detail (Cartons, Bundles, Pieces, Pallets, or Bags) is required")
 
-	def update_status(self):
-		"""Update status when submitted"""
-		frappe.db.set_value("Consignment Note", self.name, "status", "Submitted")
+	# def update_status(self):
+	# 	"""Update status when submitted"""
+	# 	frappe.db.set_value("Consignment Note", self.name, "status", "Submitted")
 
 	def on_cancel(self):
 		"""Actions to perform when consignment note is cancelled"""
@@ -191,72 +207,62 @@ class ConsignmentNote(Document):
 			}
 		return {}
 
+
 @frappe.whitelist()
-def get_supplier_details(supplier):
-	"""Get supplier details for client-side population"""
-	if not supplier:
+def get_customer_details(shipper):
+	"""Get customer details for client-side population"""
+	if not shipper:
 		return {}
 
-	supplier_doc = frappe.get_doc("Supplier", supplier)
+	shipper_doc = frappe.get_doc("Shipper", shipper)
 	details = {
-		"display_name": supplier_doc.supplier_name,
+		"display_name": shipper_doc.shipper or shipper_doc.name,
 		"phone": "",
 		"email": "",
 		"address": ""
 	}
 
-	# Get primary address
-	address = frappe.db.get_value("Dynamic Link",
-		{"link_doctype": "Supplier", "link_name": supplier, "parenttype": "Address"},
-		"parent")
 
-	if address:
-		address_doc = frappe.get_doc("Address", address)
-		details["address"] = address_doc.get_display()
+	if shipper_doc.address:
+		address_doc = frappe.get_doc("Address", shipper_doc.address)
 
-	# Get primary contact
-	contact = frappe.db.get_value("Dynamic Link",
-		{"link_doctype": "Supplier", "link_name": supplier, "parenttype": "Contact"},
-		"parent")
+	raw_address = address_doc.get_display() or ""
+	plain_address = re.sub(r'<br\s*/?>', '\n', raw_address)  # replace <br> with newline
+	details["address"] = plain_address.strip()
 
-	if contact:
-		contact_doc = frappe.get_doc("Contact", contact)
-		details["phone"] = contact_doc.phone or ""
-		details["email"] = contact_doc.email_id or ""
+	# Other details
+	details["phone"] = address_doc.phone or ""
+	details["fax"] = address_doc.fax or ""
+	details["email"] = address_doc.email_id or ""
 
 	return details
 
 @frappe.whitelist()
-def get_customer_details(customer):
-	"""Get customer details for client-side population"""
-	if not customer:
+def get_shipper_details(shipper):
+	if not shipper:
 		return {}
 
-	customer_doc = frappe.get_doc("Customer", customer)
+	shipper_doc = frappe.get_doc("Shipper", shipper)
+
 	details = {
-		"display_name": customer_doc.customer_name,
+		"display_name": shipper_doc.shipper or shipper_doc.name,
+		"address": "",
 		"phone": "",
-		"email": "",
-		"address": ""
+		"fax": "",
+		"email": ""
 	}
 
-	# Get primary address
-	address = frappe.db.get_value("Dynamic Link",
-		{"link_doctype": "Customer", "link_name": customer, "parenttype": "Address"},
-		"parent")
+	if shipper_doc.address:
+		address_doc = frappe.get_doc("Address", shipper_doc.address)
 
-	if address:
-		address_doc = frappe.get_doc("Address", address)
-		details["address"] = address_doc.get_display()
+		# Get display address without HTML <br>
+		raw_address = address_doc.get_display() or ""
+		plain_address = re.sub(r'<br\s*/?>', '\n', raw_address)  # replace <br> with newline
+		details["address"] = plain_address.strip()
 
-	# Get primary contact
-	contact = frappe.db.get_value("Dynamic Link",
-		{"link_doctype": "Customer", "link_name": customer, "parenttype": "Contact"},
-		"parent")
-
-	if contact:
-		contact_doc = frappe.get_doc("Contact", contact)
-		details["phone"] = contact_doc.phone or ""
-		details["email"] = contact_doc.email_id or ""
+		# Other details
+		details["phone"] = address_doc.phone or ""
+		details["fax"] = address_doc.fax or ""
+		details["email"] = address_doc.email_id or ""
 
 	return details
