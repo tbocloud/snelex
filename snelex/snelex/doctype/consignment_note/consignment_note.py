@@ -5,6 +5,8 @@ import frappe
 from frappe.model.document import Document
 from frappe.utils import flt
 import re
+from erpnext.accounts.party import get_party_details
+
 
 
 class ConsignmentNote(Document):
@@ -191,9 +193,9 @@ class ConsignmentNote(Document):
 	# 	"""Update status when submitted"""
 	# 	frappe.db.set_value("Consignment Note", self.name, "status", "Submitted")
 
-	def on_cancel(self):
-		"""Actions to perform when consignment note is cancelled"""
-		frappe.db.set_value("Consignment Note", self.name, "status", "Cancelled")
+	# def on_cancel(self):
+	# 	"""Actions to perform when consignment note is cancelled"""
+	# 	frappe.db.set_value("Consignment Note", self.name, "status", "Cancelled")
 
 	def get_location_details(self, location):
 		"""Get location details for display"""
@@ -209,33 +211,38 @@ class ConsignmentNote(Document):
 
 
 @frappe.whitelist()
-def get_customer_details(shipper):
-	"""Get customer details for client-side population"""
-	if not shipper:
-		return {}
+def get_customer_details(customer):
+    """Get customer details for client-side population from Customer doctype"""
+    if not customer:
+        return {}
 
-	shipper_doc = frappe.get_doc("Shipper", shipper)
-	details = {
-		"display_name": shipper_doc.shipper or shipper_doc.name,
-		"phone": "",
-		"email": "",
-		"address": ""
-	}
+    customer_doc = frappe.get_doc("Customer", customer)
 
+    # Use ERPNext helper to get address + contact
+    party_details = get_party_details(party=customer, party_type="Customer")
 
-	if shipper_doc.address:
-		address_doc = frappe.get_doc("Address", shipper_doc.address)
+    details = {
+        "display_name": customer_doc.customer_name,
+        "address": "",
+        "phone": "",
+        "fax": "",
+        "email": ""
+    }
 
-	raw_address = address_doc.get_display() or ""
-	plain_address = re.sub(r'<br\s*/?>', '\n', raw_address)  # replace <br> with newline
-	details["address"] = plain_address.strip()
+    # Address
+    if party_details.get("address_display"):
+        raw_address = party_details.get("address_display")
+        plain_address = re.sub(r'<br\s*/?>', '\n', raw_address)
+        details["address"] = plain_address.strip()
 
-	# Other details
-	details["phone"] = address_doc.phone or ""
-	details["fax"] = address_doc.fax or ""
-	details["email"] = address_doc.email_id or ""
+    # Contact (not from address_doc!)
+    if party_details.get("contact_person"):
+        contact_doc = frappe.get_doc("Contact", party_details.get("contact_person"))
+        details["phone"] = contact_doc.phone or contact_doc.mobile_no or ""
+        details["fax"] = contact_doc.fax or ""
+        details["email"] = contact_doc.email_id or ""
 
-	return details
+    return details
 
 @frappe.whitelist()
 def get_shipper_details(shipper):
