@@ -50,84 +50,101 @@ frappe.ui.form.on('Consignment Note', {
 	},
 
 	shipper: function(frm) {
-		 if (frm.doc.shipper) {
-				 set_invoiced_to(frm)
-				 frappe.call({
-						 method: 'snelex.snelex.doctype.consignment_note.consignment_note.get_shipper_details',
-						 args: {
-								 shipper: frm.doc.shipper
-						 },
-						 callback: function(r) {
-								 if (r.message) {
-										 frm.set_value('shipper_display_name', r.message.display_name);
-										 frm.set_value('shipper_address', r.message.address);
-										 frm.set_value('shipper_phone', r.message.phone);
-										 frm.set_value('shipper_fax', r.message.fax);
-										 frm.set_value('shipper_email', r.message.email);
+	    if (frm.doc.shipper) {
+	        set_invoiced_to(frm)
+	        frappe.call({
+	            method: 'snelex.snelex.doctype.consignment_note.consignment_note.get_shipper_details',
+	            args: { shipper: frm.doc.shipper },
+	            callback: function(r) {
+	                if (r.message) {
+	                    frm.set_value('shipper_display_name', r.message.display_name);
+	                    frm.set_value('shipper_address', r.message.address);
+	                    frm.set_value('shipper_phone', r.message.phone);
+	                    frm.set_value('shipper_fax', r.message.fax);
+	                    frm.set_value('shipper_email', r.message.email);
 
-										 frm.set_value('invoiced_to_display_name', r.message.display_name);
-										 frm.set_value('invoiced_to_address', r.message.address);
-										 frm.set_value('invoiced_to_phone', r.message.phone);
-										 frm.set_value('invoiced_to_phone', r.message.fax);
-										 frm.set_value('invoiced_to_email', r.message.email);
-								 }
-						 }
-				 });
-		 } else {
-				 frm.set_value('shipper_display_name', '');
-				 frm.set_value('shipper_address', '');
-				 frm.set_value('shipper_phone', '');
-				 frm.set_value('shipper_fax', '');
-				 frm.set_value('shipper_email', '');
-		 }
- },
-
-	consignee_customer: function(frm) {
-		if (frm.doc.consignee_customer) {
-			// Fetch customer details
-			frappe.call({
-				method: 'snelex.snelex.doctype.consignment_note.consignment_note.get_customer_details',
-				args: {
-					shipper: frm.doc.consignee_customer
-				},
-				callback: function(r) {
-					if (r.message) {
-						frm.set_value('consignee_display_name', r.message.display_name);
-						frm.set_value('consignee_address', r.message.address);
-						frm.set_value('consignee_phone', r.message.phone);
-						frm.set_value('consignee_email', r.message.email);
-
-						frm.set_value('invoiced_to', r.message.display_name);
-						frm.set_value('invoiced_to_display_name', r.message.display_name);
-						frm.set_value('invoiced_to_address', r.message.address);
-						frm.set_value('invoiced_to_phone', r.message.phone);
-						frm.set_value('invoiced_to_phone', r.message.fax);
-						frm.set_value('invoiced_to_email', r.message.email);
-					}
-				}
-			});
-		} else {
-			// Clear consignee details when customer is cleared
-			frm.set_value('consignee_display_name', '');
-			frm.set_value('consignee_address', '');
-			frm.set_value('consignee_phone', '');
-			frm.set_value('consignee_email', '');
-			frm.set_value('consignee_fax', '');
-			frm.set_value('consignee_web', '');
-		}
+	                    // if (frm.doc.payment_by == "Shipper") {
+											//
+										  //    frm.set_value('invoiced_to_display_name', r.message.display_name);
+										  //    frm.set_value('invoiced_to_address', r.message.address);
+										  //    frm.set_value('invoiced_to_phone', r.message.phone);
+										  //    frm.set_value('invoiced_to_fax', r.message.fax);
+										  //    frm.set_value('invoiced_to_email', r.message.email);
+											//
+	                    // }
+	                }
+	            }
+	        });
+	    } else {
+	        frm.set_value('shipper_display_name', '');
+	        frm.set_value('shipper_address', '');
+	        frm.set_value('shipper_phone', '');
+	        frm.set_value('shipper_fax', '');
+	        frm.set_value('shipper_email', '');
+	    }
 	},
 
+	consignee_customer: function(frm) {
+	    if (frm.doc.consignee_customer) {
+	        frappe.call({
+	            method: 'snelex.snelex.doctype.consignment_note.consignment_note.get_customer_details',
+	            args: { customer: frm.doc.consignee_customer },
+	            callback: function(r) {
+	                if (r.message) {
+	                    frm.set_value('consignee_display_name', r.message.display_name);
+	                    frm.set_value('consignee_address', r.message.address);
+	                    frm.set_value('consignee_phone', r.message.phone);
+	                    frm.set_value('consignee_email', r.message.email);
+	                    frm.set_value('consignee_fax', r.message.fax);
+
+	                    // if (frm.doc.payment_by == "Receiver") {
+	                    //     frm.set_value('invoiced_to_display_name', r.message.display_name);
+	                    //     frm.set_value('invoiced_to_address', r.message.address);
+	                    //     frm.set_value('invoiced_to_phone', r.message.phone);
+	                    //     frm.set_value('invoiced_to_fax', r.message.fax);
+	                    //     frm.set_value('invoiced_to_email', r.message.email);
+	                    // }
+	                }
+	            }
+	        });
+	    } else {
+	        frm.set_value('consignee_display_name', '');
+	        frm.set_value('consignee_address', '');
+	        frm.set_value('consignee_phone', '');
+	        frm.set_value('consignee_email', '');
+	        frm.set_value('consignee_fax', '');
+	        frm.set_value('consignee_web', '');
+	    }
+	},
+
+	invoiced_to: function(frm) {
+        if (frm.doc.invoiced_to) {
+            frappe.call({
+                method: "snelex.snelex.doctype.consignment_note.consignment_note.get_customer_details",
+                args: {
+                    customer: frm.doc.invoiced_to
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        let d = r.message;
+                        frm.set_value("invoiced_to_display_name", d.display_name);
+                        frm.set_value("invoiced_to_address", d.address);
+                        frm.set_value("invoiced_to_phone", d.phone);
+                        frm.set_value("invoiced_to_fax", d.fax);
+                        frm.set_value("invoiced_to_email", d.email);
+                    }
+                }
+            });
+        }
+  },
 	payment_by: function(frm) {
-		// Show/hide relevant fields based on payment type
 		if (frm.doc.payment_by === 'Shipper') {
 			frm.set_df_property('shipper', 'reqd', 1);
 			frm.set_df_property('consignee_customer', 'reqd', 0);
-			// Auto-populate invoiced to from shipper details
 			set_invoiced_to_from_shipper(frm);
 		} else if (frm.doc.payment_by === 'Receiver') {
 			frm.set_df_property('shipper', 'reqd', 0);
 			frm.set_df_property('consignee_customer', 'reqd', 1);
-			// Auto-populate invoiced to from consignee details
 			set_invoiced_to_from_consignee(frm);
 		} else {
 			frm.set_df_property('shipper', 'reqd', 0);

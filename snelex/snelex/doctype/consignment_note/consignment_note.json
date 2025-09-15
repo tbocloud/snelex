@@ -225,7 +225,7 @@
    "fieldname": "consignee_customer",
    "fieldtype": "Link",
    "label": "Consignee",
-   "options": "Shipper"
+   "options": "Customer"
   },
   {
    "fieldname": "consignee_display_name",
@@ -390,7 +390,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-15 10:15:22.866392",
+ "modified": "2025-09-15 11:39:01.899486",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Consignment Note",
