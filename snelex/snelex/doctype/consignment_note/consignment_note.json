@@ -78,6 +78,7 @@
    "reqd": 1
   },
   {
+   "default": "Today",
    "fieldname": "consignment_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -390,7 +391,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-15 11:39:01.899486",
+ "modified": "2025-09-15 14:50:37.358409",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Consignment Note",
