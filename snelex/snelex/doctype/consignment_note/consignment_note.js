@@ -3,10 +3,10 @@
 
 frappe.ui.form.on('Consignment Note', {
 	refresh: function(frm) {
-		// Set default consignment date to today if not set
-		if (!frm.doc.consignment_date) {
-			frm.set_value('consignment_date', frappe.datetime.get_today());
-		}
+
+		// if (!frm.doc.consignment_date) {
+		// 	frm.set_value('consignment_date', frappe.datetime.get_today());
+		// }
 
 		// Add custom buttons for submitted documents
 		if (frm.doc.docstatus === 1) {
