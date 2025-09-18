@@ -97,13 +97,14 @@ frappe.ui.form.on('Consignment Note', {
 	                    frm.set_value('consignee_email', r.message.email);
 	                    frm.set_value('consignee_fax', r.message.fax);
 
-	                    // if (frm.doc.payment_by == "Receiver") {
-	                    //     frm.set_value('invoiced_to_display_name', r.message.display_name);
-	                    //     frm.set_value('invoiced_to_address', r.message.address);
-	                    //     frm.set_value('invoiced_to_phone', r.message.phone);
-	                    //     frm.set_value('invoiced_to_fax', r.message.fax);
-	                    //     frm.set_value('invoiced_to_email', r.message.email);
-	                    // }
+	                    if (frm.doc.payment_by == "Receiver") {
+	                        frm.set_value('invoiced_to', r.message.display_name);
+	                        frm.set_value('invoiced_to_display_name', r.message.display_name);
+	                        frm.set_value('invoiced_to_address', r.message.address);
+	                        frm.set_value('invoiced_to_phone', r.message.phone);
+	                        frm.set_value('invoiced_to_fax', r.message.fax);
+	                        frm.set_value('invoiced_to_email', r.message.email);
+	                    }
 	                }
 	            }
 	        });
