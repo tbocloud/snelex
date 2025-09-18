@@ -18,7 +18,10 @@
   "mobile_number",
   "license_number",
   "column_break_vhkp",
-  "truck"
+  "truck",
+  "section_break_ikft",
+  "get_consignment_details",
+  "consignment_details"
  ],
  "fields": [
   {
@@ -103,12 +106,28 @@
    "fieldname": "truck",
    "fieldtype": "Data",
    "label": "Truck "
+  },
+  {
+   "fieldname": "section_break_ikft",
+   "fieldtype": "Section Break",
+   "label": " Consignment Details"
+  },
+  {
+   "fieldname": "get_consignment_details",
+   "fieldtype": "Button",
+   "label": "Get Consignment Details"
+  },
+  {
+   "fieldname": "consignment_details",
+   "fieldtype": "Table",
+   "label": "Consignment Details",
+   "options": "Consignment List"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-17 17:55:14.654671",
+ "modified": "2025-09-18 13:01:53.648263",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Manifest",
