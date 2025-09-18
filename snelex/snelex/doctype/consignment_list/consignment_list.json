@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-09-18 12:59:55.106267",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "consignment_number",
+  "consignment_date",
+  "consignee",
+  "total",
+  "shipper",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "consignment_number",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Consignment Number",
+   "options": "Consignment Note"
+  },
+  {
+   "fieldname": "consignment_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Consignment Date"
+  },
+  {
+   "fieldname": "consignee",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Consignee"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total"
+  },
+  {
+   "fieldname": "shipper",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Shipper"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-09-18 13:01:29.517280",
+ "modified_by": "Administrator",
+ "module": "Snelex",
+ "name": "Consignment List",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
