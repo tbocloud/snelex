@@ -6,3 +6,20 @@
 
 // 	},
 // });
+frappe.ui.form.on("Manifest",{
+    refresh(frm){
+        frm.set_query("truck",function(){
+            return{
+                filters:{
+                    "status":"Available"
+                }
+            }
+                
+        })
+    },
+    truck:function(frm){
+        if(frm.truck){
+            frappe.db.get_doc("Truck",frm.truck)
+        }
+    }
+})
