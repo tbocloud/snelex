@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-09-17 17:37:04.661005",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "location",
+  "manifest_date",
+  "status",
+  "transport_type",
+  "column_break_ovhj",
+  "manifest_number",
+  "job_card_number",
+  "remarks",
+  "driver_and_truck_details_section",
+  "driver",
+  "mobile_number",
+  "license_number",
+  "column_break_vhkp",
+  "truck"
+ ],
+ "fields": [
+  {
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Location",
+   "options": "Location",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "manifest_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Manifest Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nClose",
+   "reqd": 1
+  },
+  {
+   "fieldname": "transport_type",
+   "fieldtype": "Select",
+   "label": "Transport Type",
+   "options": "\nBy Road\nBy Air",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ovhj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "manifest_number",
+   "fieldtype": "Data",
+   "label": "Manifest Number"
+  },
+  {
+   "fieldname": "job_card_number",
+   "fieldtype": "Link",
+   "label": "Job Card Number",
+   "options": "Job Card"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks",
+   "reqd": 1
+  },
+  {
+   "fieldname": "driver_and_truck_details_section",
+   "fieldtype": "Section Break",
+   "label": "Driver and Truck Details"
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver",
+   "options": "Driver"
+  },
+  {
+   "fetch_from": "driver.cell_number",
+   "fieldname": "mobile_number",
+   "fieldtype": "Phone",
+   "label": "Mobile Number"
+  },
+  {
+   "fetch_from": "driver.license_number",
+   "fieldname": "license_number",
+   "fieldtype": "Data",
+   "label": "License Number"
+  },
+  {
+   "fieldname": "column_break_vhkp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "truck",
+   "fieldtype": "Data",
+   "label": "Truck "
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-17 17:55:14.654671",
+ "modified_by": "Administrator",
+ "module": "Snelex",
+ "name": "Manifest",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

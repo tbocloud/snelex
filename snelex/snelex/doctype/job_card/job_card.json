@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2025-08-29 09:17:00.000000",
+ "creation": "2025-08-29 09:17:00",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -11,6 +11,7 @@
   "naming_series",
   "job_date",
   "consignment_note",
+  "job_card_id",
   "column_break_4",
   "job_status",
   "advance_status",
@@ -22,8 +23,6 @@
   "tracking_no",
   "job_details_section",
   "job_description",
-  "special_instructions",
-  "column_break_15",
   "estimated_delivery_date",
   "actual_delivery_date",
   "priority",
@@ -53,6 +52,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Series",
    "options": "JOB-.YYYY.-",
    "reqd": 1
@@ -60,15 +60,15 @@
   {
    "fieldname": "job_date",
    "fieldtype": "Date",
-   "label": "Job Date",
-   "reqd": 1
+   "hidden": 1,
+   "label": "Job Date"
   },
   {
    "fieldname": "consignment_note",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Consignment Note",
-   "options": "Consignment Note",
-   "reqd": 1
+   "options": "Consignment Note"
   },
   {
    "fieldname": "column_break_4",
@@ -77,19 +77,21 @@
   {
    "fieldname": "job_status",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Job Status",
-   "options": "\nOpen\nIn Progress\nCompleted\nCancelled",
-   "reqd": 1
+   "options": "\nOpen\nIn Progress\nCompleted\nCancelled"
   },
   {
    "fieldname": "advance_status",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Advance Status",
    "options": "\nOpen\nClosed"
   },
   {
    "fieldname": "section_break_7",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1
   },
   {
    "fieldname": "consignment_from",
@@ -128,37 +130,32 @@
   },
   {
    "fieldname": "job_description",
-   "fieldtype": "Text Editor",
+   "fieldtype": "Small Text",
    "label": "Job Description"
-  },
-  {
-   "fieldname": "special_instructions",
-   "fieldtype": "Text Editor",
-   "label": "Special Instructions"
-  },
-  {
-   "fieldname": "column_break_15",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "estimated_delivery_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Estimated Delivery Date"
   },
   {
    "fieldname": "actual_delivery_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Actual Delivery Date"
   },
   {
    "fieldname": "priority",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Priority",
    "options": "\nLow\nMedium\nHigh\nUrgent"
   },
   {
    "fieldname": "shipper_info_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Shipper Information"
   },
   {
@@ -192,6 +189,7 @@
   {
    "fieldname": "consignee_info_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Consignee Information"
   },
   {
@@ -225,6 +223,7 @@
   {
    "fieldname": "shipment_summary_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Shipment Summary"
   },
   {
@@ -258,6 +257,7 @@
   {
    "fieldname": "remarks_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Remarks"
   },
   {
@@ -273,12 +273,16 @@
    "options": "Job Card",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "job_card_id",
+   "fieldtype": "Data",
+   "label": "Job Card ID"
   }
  ],
  "index_web_pages_for_search": 1,
- "is_submittable": 1,
  "links": [],
- "modified": "2025-08-29 09:17:00.000000",
+ "modified": "2025-09-17 17:47:19.601723",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Job Card",
@@ -295,7 +299,6 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "submit": 1,
    "write": 1
   },
   {
@@ -308,7 +311,6 @@
    "report": 1,
    "role": "Accounts Manager",
    "share": 1,
-   "submit": 1,
    "write": 1
   },
   {
@@ -320,10 +322,10 @@
    "report": 1,
    "role": "Accounts User",
    "share": 1,
-   "submit": 1,
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

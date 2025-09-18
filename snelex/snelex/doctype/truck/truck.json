@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:truck_number",
+ "creation": "2025-09-18 10:19:53.605131",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "truck_number",
+  "registration_number",
+  "model",
+  "capacityton",
+  "owner_name",
+  "driver",
+  "column_break_pxxg",
+  "chassis_number",
+  "engine_number",
+  "fuel_type",
+  "insurance_expiry_date",
+  "permit_expiry_date",
+  "status",
+  "section_break_8fnc",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "truck_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Truck Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "registration_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Registration Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Model",
+   "reqd": 1
+  },
+  {
+   "fieldname": "capacityton",
+   "fieldtype": "Int",
+   "label": "Capacity(ton)"
+  },
+  {
+   "fieldname": "owner_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Owner Name",
+   "options": "Supplier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver",
+   "options": "Driver"
+  },
+  {
+   "fieldname": "chassis_number",
+   "fieldtype": "Data",
+   "label": "Chassis Number"
+  },
+  {
+   "fieldname": "engine_number",
+   "fieldtype": "Data",
+   "label": "Engine Number"
+  },
+  {
+   "fieldname": "fuel_type",
+   "fieldtype": "Select",
+   "label": "Fuel Type",
+   "options": "\nDiesel\nPetrol\nCVG\nElectric\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "insurance_expiry_date",
+   "fieldtype": "Date",
+   "label": "Insurance Expiry Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "permit_expiry_date",
+   "fieldtype": "Date",
+   "label": "Permit Expiry Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nAvailable\nIn Transit\nUnder Maintenance\nUnavailable",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_pxxg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_8fnc",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-18 10:37:43.033204",
+ "modified_by": "Administrator",
+ "module": "Snelex",
+ "name": "Truck",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
