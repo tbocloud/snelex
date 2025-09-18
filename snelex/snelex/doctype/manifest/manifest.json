@@ -19,15 +19,12 @@
   "license_number",
   "column_break_vhkp",
   "truck",
-<<<<<<< Updated upstream
+  "registration_number",
+  "model",
+  "owner_name",
   "section_break_ikft",
   "get_consignment_details",
   "consignment_details"
-=======
-  "registration_number",
-  "model",
-  "owner_name"
->>>>>>> Stashed changes
  ],
  "fields": [
   {
@@ -118,8 +115,7 @@
    "fetch_from": "truck.registration_number",
    "fieldname": "registration_number",
    "fieldtype": "Data",
-<<<<<<< Updated upstream
-   "label": "Truck "
+   "label": "Registration Number"
   },
   {
    "fieldname": "section_break_ikft",
@@ -136,8 +132,6 @@
    "fieldtype": "Table",
    "label": "Consignment Details",
    "options": "Consignment List"
-=======
-   "label": "Registration Number"
   },
   {
    "fetch_from": "truck.model",
@@ -151,17 +145,12 @@
    "fieldtype": "Link",
    "label": "Owner Name",
    "options": "Supplier"
->>>>>>> Stashed changes
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
-<<<<<<< Updated upstream
- "modified": "2025-09-18 13:01:53.648263",
-=======
- "modified": "2025-09-18 13:10:12.442996",
->>>>>>> Stashed changes
+ "modified": "2025-09-18 14:32:27.645908",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Manifest",
