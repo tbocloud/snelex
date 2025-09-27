@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "MNF-.####",
  "creation": "2025-09-17 17:37:04.661005",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -18,6 +19,7 @@
   "mobile_number",
   "license_number",
   "column_break_vhkp",
+  "truck_type",
   "truck",
   "registration_number",
   "model",
@@ -46,6 +48,7 @@
   {
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
    "options": "Open\nClose",
    "reqd": 1
@@ -53,8 +56,8 @@
   {
    "fieldname": "transport_type",
    "fieldtype": "Select",
-   "label": "Transport Type",
-   "options": "\nBy Road\nBy Air",
+   "label": "Mode of Transport",
+   "options": "\nBy Road\nBy Sea\nBy Air\nBy Road clearance\nBy Airport clearance\nBy Seaport  clearance\nLocal shipments",
    "reqd": 1
   },
   {
@@ -64,13 +67,13 @@
   {
    "fieldname": "manifest_number",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Manifest Number"
   },
   {
    "fieldname": "job_card_number",
-   "fieldtype": "Link",
-   "label": "Job Card Number",
-   "options": "Job Card"
+   "fieldtype": "Data",
+   "label": "Job Card Number"
   },
   {
    "fieldname": "remarks",
@@ -145,15 +148,22 @@
    "fieldtype": "Link",
    "label": "Owner Name",
    "options": "Supplier"
+  },
+  {
+   "fieldname": "truck_type",
+   "fieldtype": "Select",
+   "label": "Truck Type",
+   "options": "\nFlat Bed\nLow Bed\n40 Feet Box truck\n3 ton truck"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-18 14:32:27.645908",
+ "modified": "2025-09-27 14:43:09.153471",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Manifest",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

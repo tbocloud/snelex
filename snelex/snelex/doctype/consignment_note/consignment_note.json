@@ -48,6 +48,7 @@
   "delivery_tab",
   "delivery_details",
   "delivery_contact_person",
+  "name1",
   "delivery_address",
   "column_break_30",
   "delivery_phone",
@@ -63,6 +64,7 @@
   "number_of_pallets",
   "number_of_bags",
   "total_no_of_pieces",
+  "total_cbm",
   "total_weight_lbs",
   "description_section",
   "remarks",
@@ -274,8 +276,9 @@
   },
   {
    "fieldname": "delivery_contact_person",
-   "fieldtype": "Data",
-   "label": "Contact Person"
+   "fieldtype": "Link",
+   "label": "Contact Person",
+   "options": "Customer"
   },
   {
    "fieldname": "delivery_address",
@@ -384,16 +387,25 @@
   },
   {
    "fieldname": "product",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Product",
-   "options": "Item",
    "reqd": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "total_cbm",
+   "fieldtype": "Int",
+   "label": "Total cbm"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-18 12:49:03.647030",
+ "modified": "2025-09-27 14:30:22.970561",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Consignment Note",
