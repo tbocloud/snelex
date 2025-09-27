@@ -97,6 +97,14 @@ frappe.ui.form.on('Consignment Note', {
 	                    frm.set_value('consignee_email', r.message.email);
 	                    frm.set_value('consignee_fax', r.message.fax);
 
+											frm.set_value('delivery_contact_person', r.message.display_name);
+											frm.set_value('name1', r.message.display_name);
+											frm.set_value('delivery_address', r.message.address);
+											frm.set_value('delivery_phone', r.message.phone);
+											frm.set_value('delivery_email', r.message.email);
+											frm.set_value('delivery_fax', r.message.fax);
+
+
 	                    if (frm.doc.payment_by == "Receiver") {
 	                        frm.set_value('invoiced_to', r.message.display_name);
 	                        frm.set_value('invoiced_to_display_name', r.message.display_name);

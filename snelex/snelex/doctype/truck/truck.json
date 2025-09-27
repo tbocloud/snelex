@@ -6,6 +6,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "truck_type",
   "truck_number",
   "registration_number",
   "model",
@@ -112,12 +113,19 @@
   {
    "fieldname": "section_break_8fnc",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "truck_type",
+   "fieldtype": "Select",
+   "label": "Truck Type",
+   "options": "\nFlat Bed\nLow Bed\n40 Feet Box truck\n3 ton truck",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-18 10:37:43.033204",
+ "modified": "2025-09-27 14:41:10.481784",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Truck",
