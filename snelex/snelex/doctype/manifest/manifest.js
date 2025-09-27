@@ -7,7 +7,8 @@ frappe.ui.form.on("Manifest",{
         frm.set_query("truck",function(){
             return{
                 filters:{
-                    "status":"Available"
+                    "status":"Available",
+                    "truck_type": frm.doc.truck_type
                 }
             }
 
