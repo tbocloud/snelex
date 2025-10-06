@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "location",
+  "origin",
   "manifest_date",
   "status",
   "transport_type",
@@ -33,7 +34,8 @@
    "fieldname": "location",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Location",
+   "in_standard_filter": 1,
+   "label": "To Location",
    "options": "Location",
    "reqd": 1
   },
@@ -56,6 +58,8 @@
   {
    "fieldname": "transport_type",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Mode of Transport",
    "options": "\nBy Road\nBy Sea\nBy Air\nBy Road clearance\nBy Airport clearance\nBy Seaport  clearance\nLocal shipments",
    "reqd": 1
@@ -154,12 +158,21 @@
    "fieldtype": "Select",
    "label": "Truck Type",
    "options": "\nFlat Bed\nLow Bed\n40 Feet Box truck\n3 ton truck"
+  },
+  {
+   "fieldname": "origin",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Origin",
+   "options": "Location",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-27 14:43:09.153471",
+ "modified": "2025-10-06 17:47:11.989664",
  "modified_by": "Administrator",
  "module": "Snelex",
  "name": "Manifest",
